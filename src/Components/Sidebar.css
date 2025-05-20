@@ -1,0 +1,47 @@
+/* Sidebar takes up only part of the left side */
+.sidebar {
+    width: 250px;
+    /* Size of sidebar */
+    background-color: #f4f4f4;
+    /* Light gray background */
+    padding: 20px;
+    height: 100vh;
+    /* Full screen height */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    /* Small shadow to the right */
+    position: fixed;
+    /* Fix it on the side */
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    /* Scroll if too many genres */
+}
+
+/* Style the list */
+.genre-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* Style each list item */
+.genre-list li {
+    margin-bottom: 10px;
+}
+
+/* Style buttons inside */
+.genre-list button {
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+/* Hover effect */
+.genre-list button:hover {
+    background-color: #ddd;
+}

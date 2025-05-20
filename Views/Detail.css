@@ -1,0 +1,89 @@
+/* Detail.css */
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #141414;
+  color: #fff;
+}
+
+body,
+html {
+  overflow-y: auto;
+}
+
+.detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  padding-top: 900px;
+}
+
+.detail-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-header img {
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+.detail-header h1 {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.detail-header p {
+  font-size: 1.2rem;
+  max-width: 600px;
+}
+
+.detail-info {
+  margin-top: 2rem;
+  background-color: #222;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.detail-info h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.detail-info p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+}
+
+.detail-info a {
+  color: #e50914;
+  text-decoration: none;
+}
+
+.detail-info a:hover {
+  text-decoration: underline;
+}
+
+.trailer-section {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.trailer-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.trailer-section iframe {
+  width: 100%;
+  max-width: 800px;
+  height: 450px;
+  border: none;
+  border-radius: 10px;
+}

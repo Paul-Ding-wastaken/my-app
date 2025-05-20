@@ -1,0 +1,70 @@
+/* MovieBlock.css */
+
+/* Overall styling for each movie block */
+.movie {
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin: 10px;
+  height: 300px;
+  /* Fixed height for the movie block */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  /* Allow the movie block to take up full width within its grid cell */
+  max-width: 100%;
+  /* Prevent the block from overflowing */
+}
+
+.movie img {
+  width: 100%;
+  /* Make sure the image takes up the full width of the container */
+  height: 100%;
+  /* Ensure the image takes up the full height of the container */
+  object-fit: cover;
+  /* Scale the image to cover the container while maintaining its aspect ratio */
+  border-bottom: 4px solid #ff6600;
+  transition: transform 0.3s ease;
+  /* Smooth zoom effect */
+}
+
+.movie:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  /* Darker shadow on hover */
+}
+
+.movie img:hover {
+  transform: scale(1.05);
+  /* Slight zoom on hover */
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+  padding: 10px;
+}
+
+.movie-block {
+  width: 80%;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-block img {
+  width: 80%;
+  height: 240px;
+  object-fit: cover;
+  display: block;
+}
+
+.movie-block:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
