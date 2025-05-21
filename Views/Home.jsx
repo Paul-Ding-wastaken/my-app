@@ -10,11 +10,22 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 
 function Home() {
     const [movies, setMovies] = useState([]);
+    const [randomIndices, setRandomIndices] = useState([]);
 
     useEffect(() => {
         axios.get(`https://api.themoviedb.org/3/trending/all/day?api_key=${API_KEY}`)
             .then((response) => {
-                setMovies(response.data.results);
+                const results = response.data.results;
+                setMovies(results);
+
+                const indices = [];
+                while (indices.length < 4) {
+                    const num = Math.floor(Math.random() * results.length);
+                    if (!indices.includes(num)) {
+                        indices.push(num);
+                    }
+                }
+                setRandomIndices(indices);
             })
             .catch((error) => {
                 console.error('Error fetching data:', error);
@@ -36,13 +47,18 @@ function Home() {
                 <section className="trending-section">
                     <h2>🔥 Trending Now</h2>
                     <div className="discovery">
-                        {movies.slice(0, 4).map((movie) => (
-                            <MovieBlock
-                                key={movie.id}
-                                poster_path={movie.poster_path}
-                                id={movie.id}
-                            />
-                        ))}
+                        {randomIndices.length === 4 &&
+                            randomIndices.map(index => {
+                                const movie = movies[index];
+                                return (
+                                    <MovieBlock
+                                        key={movie.id}
+                                        poster_path={movie.poster_path}
+                                        id={movie.id}
+                                    />
+                                );
+                            })
+                        }
                     </div>
                 </section>
 
