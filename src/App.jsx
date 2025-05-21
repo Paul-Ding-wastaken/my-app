@@ -8,6 +8,7 @@ import DetailView from '../Views/Detail'
 import Error from '../Views/Error';
 import Search from '../Views/Search'
 import Cart from '../Views/Cart'
+import Settings from '../Views/Settings'
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
       <Route path="*" element={<Error />} />
       <Route path="/Search/:id" element={<Search />} />
       <Route path="/Cart" element={<Cart />} />
+      <Route path="/Settings" element={<Settings />} />
     </Routes>
 
   )

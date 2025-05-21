@@ -18,20 +18,22 @@ function Register() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password1, setPassword1] = useState("");
+    const { curgenre, setCurgenre} = useContext(UserContext);
+    let genrelist = [];
 
 
     const submit = (event) => {
         event.preventDefault();
         if (checkNumber()) {
             console.log("made it through")
-            if(password == password1) {
-            setLogged(true);
-            setUserFirstName(userFirstname);
-            setUserLastName(userLastname);
-            setUserEmail(email);
-            setUserGenres(selectedGenres);
-            navigate('/Genres');
-            }else{
+            if (password == password1) {
+                setLogged(true);
+                setUserFirstName(userFirstname);
+                setUserLastName(userLastname);
+                setUserEmail(email);
+                setUserGenres(selectedGenres);
+                navigate('/Genres');
+            } else {
                 alert("passwords do not match");
             }
         }
@@ -44,6 +46,11 @@ function Register() {
         originalGenres[x.target.value - 1] = x.target.checked;
         setSelectedGenres(originalGenres);
     }
+
+    function setstuff(x) {
+        setCurgenre(x);
+    }
+
     function checkNumber() {
 
         let selectedGenresCount = 0;
@@ -75,56 +82,57 @@ function Register() {
                 </div>
                 <div className="form-group">
                     <label htmlFor="email">Email: </label>
-                    <input type="email" id="email" name="email" required onChange={(e) => setEmail(e.target.value)}/>
+                    <input type="email" id="email" name="email" required onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">Password: </label>
-                    <input type="password" id="password" name="password" required onChange={(e) => setPassword(e.target.value)}/>
+                    <input type="password" id="password" name="password" required onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password1">Reconfirm Password: </label>
-                    <input type="password" id="password1" name="password1" required onChange={(e) => setPassword1(e.target.value)}/>
+                    <input type="password" id="password1" name="password1" required onChange={(e) => setPassword1(e.target.value)} />
                 </div>
                 <button onClick={submit} type="submit">Register</button>
             </form>
             <div>
                 <h1>select 5 genres you are intrested in</h1>
                 <li>
-                    <input type="checkbox" id="action" name="action" value="1" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="action" name="action" value="28" onChange={(e) => { handleCheckboxChange(e); setstuff(28) }} />
                     <label htmlFor="action">Action</label>
 
-                    <input type="checkbox" id="adventure" name="adventure" value="2" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="adventure" name="adventure" value="12" onChange={(e) => { handleCheckboxChange(e); setstuff(12) }} />
                     <label htmlFor="adventure">Adventure</label>
 
-                    <input type="checkbox" id="animation" name="animation" value="3" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="animation" name="animation" value="16" onChange={(e) => { handleCheckboxChange(e); setstuff(16) }} />
                     <label htmlFor="animation">Animation</label>
 
-                    <input type="checkbox" id="crime" name="crime" value="4" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="crime" name="crime" value="80" onChange={(e) => { handleCheckboxChange(e); setstuff(80) }} />
                     <label htmlFor="crime">Crime</label>
 
-                    <input type="checkbox" id="family" name="family" value="5" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="family" name="family" value="10751" onChange={(e) => { handleCheckboxChange(e); setstuff(10751) }} />
                     <label htmlFor="family">Family</label>
 
-                    <input type="checkbox" id="fantasy" name="fantasy" value="6" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="fantasy" name="fantasy" value="14" onChange={(e) => { handleCheckboxChange(e); setstuff(14) }} />
                     <label htmlFor="fantasy">Fantasy</label>
 
-                    <input type="checkbox" id="history" name="history" value="7" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="history" name="history" value="36" onChange={(e) => { handleCheckboxChange(e); setstuff(36) }} />
                     <label htmlFor="history">History</label>
 
-                    <input type="checkbox" id="horror" name="horror" value="8" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="horror" name="horror" value="27" onChange={(e) => { handleCheckboxChange(e); setstuff(27) }} />
                     <label htmlFor="horror">Horror</label>
 
-                    <input type="checkbox" id="mystery" name="mystery" value="9" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="mystery" name="mystery" value="9648" onChange={(e) => { handleCheckboxChange(e); setstuff(9648) }} />
                     <label htmlFor="mystery">Mystery</label>
 
-                    <input type="checkbox" id="scifi" name="scifi" value="10" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="scifi" name="scifi" value="878" onChange={(e) => { handleCheckboxChange(e); setstuff(878) }} />
                     <label htmlFor="scifi">Sci-Fi</label>
 
-                    <input type="checkbox" id="war" name="war" value="11" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="war" name="war" value="10752" onChange={(e) => { handleCheckboxChange(e); setstuff(10752) }} />
                     <label htmlFor="war">War</label>
 
-                    <input type="checkbox" id="western" name="western" value="12" onChange={handleCheckboxChange} />
+                    <input type="checkbox" id="western" name="western" value="37" onChange={(e) => { handleCheckboxChange(e); setstuff(37) }} />
                     <label htmlFor="western">Western</label>
+
                 </li>
             </div>
         </div>

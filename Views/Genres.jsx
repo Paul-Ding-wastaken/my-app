@@ -5,11 +5,15 @@ import MovieBlock from '../src/Components/MovieBlock';
 import './Genres.css';
 import axios from 'axios';
 import Header from '../src/Components/Header';
+import { useContext } from 'react';
+import UserContext from '../src/Components/userData';
 
 const API_KEY = import.meta.env.VITE_API_KEY;
 
 function Genres() {
-    const [curGenre, setGenre] = useState(28);
+    const {curgenre, setCurgenre} = useContext(UserContext);
+    console.log(curgenre);
+    const [curGenre, setGenre] = useState(curgenre);
     const [curPage, setCurPage] = useState(1);
     const [movies, setMovies] = useState([]);
 
@@ -47,6 +51,7 @@ function Genres() {
                                 key={movie.id}
                                 poster_path={movie.poster_path}
                                 id={movie.id}
+                                title={movie.title}
                             />
                         ))}
                     </div>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import LoggedContext from "./loggedContext";
 import { useContext } from "react";
 import axios from "axios";
+import UserContext from './userData';   
 
 
 function Header() {
@@ -15,6 +16,8 @@ function Header() {
     const s3 = document.querySelector('.s3');
     const s4 = document.querySelector('.s4');
     const s5 = document.querySelector('.s5');
+    const { userFirstName, setUserFirstName } = useContext(UserContext);
+    const { userLastName, setUserLastName } = useContext(UserContext);
 
     function chill(func, delay) {
         let x;
@@ -140,6 +143,7 @@ function Header() {
     return (
         <header>
             <h1>Rizz Net</h1>
+            <p>Hey there, {userFirstName} {userLastName}!</p>
 
 
 

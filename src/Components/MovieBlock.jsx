@@ -7,14 +7,27 @@ import { useLocation } from 'react-router-dom';
 import CartContext from './cartContext';
 
 
+
 function MovieBlock(x) {
   const { logged, setLogged } = useContext(LoggedContext);
   const [imageUrl, setImageUrl] = useState(null);
   const { cart, setCart } = useContext(CartContext);
   const [originalCart, setOriginalCart] = useState(cart);
   const location = useLocation()
-  console.log(location.pathname)
+  const [disabled, setDisabled] = useState(false);
+  const [innerhtml, setinnerhtml] = useState("Add to Cart");
 
+
+  useEffect(() => {
+    const inCart = cart.some((item) => item.id === x.id);
+    if (inCart) {
+      setDisabled(true);
+      setinnerhtml("Added to Cart");
+    } else {
+      setDisabled(false);
+      setinnerhtml("Add to Cart");
+    }
+  }, [cart, x.id]);
 
   function handleAddToCart() {
     if (!cart.find((item) => item.id === x.id)) {
@@ -44,7 +57,8 @@ function MovieBlock(x) {
 
   return (
     <>
-      {logged == true ? (
+    <div>
+{logged == true ? (
         <Link className="movie-block" to={`/Details/${x.id}`} style={{ textDecoration: 'none' }}>
           <img src={imageUrl} style={{ cursor: 'pointer' }} />
         </Link>
@@ -53,11 +67,17 @@ function MovieBlock(x) {
           <img src={imageUrl} style={{ cursor: 'pointer' }} />
         </Link>
       )}
+      <div>
+        <p>{x.title}</p>
+      </div>
+      
       {location.pathname === '/Genres' || location.pathname === '/' ? (
-        <button onClick={handleAddToCart}>Add to Cart</button>
+        <button disabled={disabled} onClick={handleAddToCart}>{innerhtml}</button>
       ) : location.pathname === '/Cart' ? (
         <button onClick={handleRemoveFromCart}>Remove from Cart</button>
       ) : null}
+    </div>
+      
 
     </>
   );

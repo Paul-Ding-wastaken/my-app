@@ -13,15 +13,18 @@ function Cart() {
         <>
             <Header />
             <h1>Your Cart</h1>
-            <div className="cart-container">
-                <div className="movie-block">
-                {originalCart.slice(0, originalCart.length).map((movie) => (
+            <div className="page-container">
+                <h1>Your Cart{originalCart[0] ? (""): <>, looking empty. <br />Go find some movies!</>}</h1>
+                <div className="content">
+                    <div className="movies-grid">
+                        {originalCart.slice(0, originalCart.length).map((movie) => (
                             <MovieBlock
                                 key={movie.id}
                                 poster_path={movie.poster_path}
                                 id={movie.id}
                             />
                         ))}
+                    </div>
                 </div>
             </div>
         </>

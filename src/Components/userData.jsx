@@ -7,9 +7,10 @@ export function UserProvider({ children }) {
     const [userLastName, setUserLastName] = useState("");
     const [userEmail, setUserEmail] = useState("");
     const [userGenres, setUserGenres] = useState([]);
+    const [curgenre, setCurgenre] = useState(0);
 
     return (
-        <UserContext.Provider value={{userFirstName, setUserFirstName, userLastName, setUserLastName, userEmail, setUserEmail, userGenres, setUserGenres}}> 
+        <UserContext.Provider value={{userFirstName, setUserFirstName, userLastName, setUserLastName, userEmail, setUserEmail, userGenres, setUserGenres, curgenre, setCurgenre}}>   
             {children}
         </UserContext.Provider>
     );

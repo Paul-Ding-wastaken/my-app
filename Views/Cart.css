@@ -1,87 +1,128 @@
-/* General page styling */
-body {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #141414;
-    color: #fff;
+/* Genres.css */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* Header styling */
-h1 {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 2.5rem;
-    color: #e5e5e5;
+
+.page-container {
+  display: flex;
+  height: 105vh;
+  width: 100vw;
+  background-color: #141414;
+  /* Netflix dark background */
+  color: white;
+  padding-top: 100px;
 }
 
-/* Cart container */
-.cart-container {
-    margin: 20px auto;
-    padding: 20px;
-    max-width: 1000px;
+.sidebar {
+  width: 200px;
+  background-color: #1c1c1c;
+  padding: 20px;
+  box-sizing: border-box;
+  padding-top: 100px;
 }
 
-/* Movie grid */
-.movie-block {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    justify-items: center;
+.sidebar h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
 }
 
-/* Movie card styling */
-MovieBlock {
-    position: relative;
-    width: 180px;
-    height: 270px;
-    border-radius: 8px;
-    overflow: hidden;
-    background-color: #333;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+.genre-list {
+  list-style: none;
+  padding: 0;
 }
 
-MovieBlock:hover {
-    transform: scale(1.1);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
-    z-index: 1;
+.genre-list li {
+  margin-bottom: 10px;
 }
 
-/* Movie poster */
-MovieBlock img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.genre-list button {
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  transition: color 0.2s;
 }
 
-/* Movie title overlay */
-MovieBlock .title-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 8px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-    color: #fff;
-    font-size: 1rem;
-    text-align: center;
+.genre-list button:hover {
+  color: white;
 }
 
-/* Button styling */
-MovieBlock button {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    padding: 6px 12px;
-    background-color: #e50914;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.content {
+  flex: 2;
+  padding: 20px;
+  overflow-y: auto;
 }
 
-MovieBlock button:hover {
-    background-color: #b0070c;
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 equal-width columns */
+  gap: 20px 0px;
+  margin-left: 180px;
+  margin-top: 20px
+}
+
+.pagination-buttons {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.pagination-buttons button {
+  background-color: #e50914;
+  /* Netflix red */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.pagination-buttons button:hover {
+  background-color: #f6121d;
+}
+
+/* Hide scrollbars globally */
+body,
+html {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
+/* Optionally hide scrollbars from containers */
+.page-container,
+.sidebar,
+.content {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+
+}
+
+.page-container::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar,
+.content::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
+
+Header {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  z-index: 100;
 }
