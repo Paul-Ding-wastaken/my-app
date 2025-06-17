@@ -16,8 +16,10 @@ function Header() {
     const s3 = document.querySelector('.s3');
     const s4 = document.querySelector('.s4');
     const s5 = document.querySelector('.s5');
-    const { userFirstName, setUserFirstName } = useContext(UserContext);
-    const { userLastName, setUserLastName } = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
+    const { purchased, setPurchased } = useContext(UserContext);
+    const { genres, setGenres } = useContext(UserContext);
+    
 
     function chill(func, delay) {
         let x;
@@ -37,7 +39,7 @@ function Header() {
                 temp2 += temp.charAt(i);
             }
         }
-        axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_API_KEY}&query=${temp2}`)
+        axios.get(`https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_API_KEY}&query=${temp2}&adult=false`)
             .then((response) => {
                 setSearch(response.data.results);
                 handleChange(response.data.results);
@@ -118,9 +120,11 @@ function Header() {
 
     const { logged, setLogged } = useContext(LoggedContext);
     function handleLogout() {
-        setLogged(false);
         navigate('/');
-        window.location.reload()
+        setUser(null);
+        setGenres([]);
+        setPurchased([]);
+        setLogged(false);
     }
 
     function searched(x) {
@@ -142,9 +146,8 @@ function Header() {
 
     return (
         <header>
-            <h1>Rizz Net</h1>
-            <p>Hey there, {userFirstName} {userLastName}!</p>
 
+            <h1 onClick={() => navigate("/genres")}>Rizz Net</h1>
 
 
 
@@ -159,6 +162,8 @@ function Header() {
                 </>
             ) : (
                 <>
+                
+                <p>Hey there, {user.displayName}!</p>
                     <div className="search-bar">
                         <input id="searchBar" type="text" placeholder="Search..." onChange={(e) => searching(e)}
                             onKeyDown={(e) => {

@@ -11,7 +11,7 @@ function DetailView() {
     const [trailerKey, setTrailerKey] = useState(null);
 
     useEffect(() => {
-        axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`)
+        axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}&adult=false`)
             .then((response) => setMovie(response.data))
 
         axios.get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${API_KEY}`)

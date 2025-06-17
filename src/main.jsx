@@ -12,14 +12,18 @@ globalThis.Logged = false;
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <BrowserRouter>
     <LoggedProvider>
+      <UserProvider>
       <CartProvider>
-        <BrowserRouter>
-          <UserProvider>
+        
+          
             <App />
-          </UserProvider>
-        </BrowserRouter>
+          
+        
       </CartProvider>
+      </UserProvider>
     </LoggedProvider>
-  </StrictMode>,
+    </BrowserRouter>
+  </StrictMode>
 )

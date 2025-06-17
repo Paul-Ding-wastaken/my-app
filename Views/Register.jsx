@@ -4,35 +4,67 @@ import { useState } from 'react';
 import LoggedContext from '../src/Components/loggedContext';
 import { useContext } from 'react';
 import UserContext from '../src/Components/userData';
+import { auth, googleProvider } from '../src/firebase/index';
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { setDoc, doc } from 'firebase/firestore';
+import { db } from '../src/firebase/index';
+
+
 
 
 function Register() {
     const { logged, setLogged } = useContext(LoggedContext);
-    const { userFirstName, setUserFirstName } = useContext(UserContext);
-    const { userLastName, setUserLastName } = useContext(UserContext);
-    const { userEmail, setUserEmail } = useContext(UserContext);
-    const { userGenres, setUserGenres } = useContext(UserContext);
+    const { user, setUser } = useContext(UserContext);
+    const { genres, setGenres } = useContext(UserContext);
     const navigate = useNavigate();
+    let genrelist = [];
     const [userFirstname, setUserFirstname] = useState("");
     const [userLastname, setUserLastname] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [password1, setPassword1] = useState("");
-    const { curgenre, setCurgenre} = useContext(UserContext);
-    let genrelist = [];
+    const [curgenre, setCurgenre] = useState(28);
+    const loginWithGoogle = async () => {
+        if (checkNumber()) {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                setUser(result.user);
+                setGenres(selectedGenres);
+                if (userCredential.user.displayName) {
+                    setUserFirstname(result.user.displayName.split(" ")[0] || "");
+                    setUserLastname(result.user.displayName.split(" ")[1] || "");
+                }
+                setEmail(result.user.email || "");
+                setLogged(true);
+                saveUser(result.user.uid);
+                navigate('/genres');
+
+            } catch (error) {
+                console.error("Google Sign-in error:", error.message);
+                alert("Google sign-in failed: " + error.message);
+            }
+        }
+    };
 
 
-    const submit = (event) => {
+    const submit = async (event) => {
         event.preventDefault();
         if (checkNumber()) {
-            console.log("made it through")
+
             if (password == password1) {
-                setLogged(true);
-                setUserFirstName(userFirstname);
-                setUserLastName(userLastname);
-                setUserEmail(email);
-                setUserGenres(selectedGenres);
-                navigate('/Genres');
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        userCredential.user.displayName = userFirstname + " " + userLastname;
+                        setUser(userCredential.user);
+                        setLogged(true);
+                        setGenres(selectedGenres);
+                        saveUser(userCredential.user.uid)
+                        navigate('/genres');
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+
             } else {
                 alert("passwords do not match");
             }
@@ -49,6 +81,7 @@ function Register() {
 
     function setstuff(x) {
         setCurgenre(x);
+
     }
 
     function checkNumber() {
@@ -66,6 +99,20 @@ function Register() {
         } else {
             return true;
         }
+    }
+
+    async function saveUser(userId) {
+        await setDoc(doc(db, "users", userId), {
+            firstname: userFirstname,
+            lastname: userLastname,
+            email: email,
+            genres: selectedGenres,
+            purchased: []
+        }).then(() => {
+            console.log("User data saved successfully");
+        }).catch((error) => {
+            console.error("Error saving user data:", error);
+        });
     }
 
     return (
@@ -97,44 +144,49 @@ function Register() {
             <div>
                 <h1>select 5 genres you are intrested in</h1>
                 <li>
-                    <input type="checkbox" id="action" name="action" value="28" onChange={(e) => { handleCheckboxChange(e); setstuff(28) }} />
+                    <input type="checkbox" id="action" name="action" value="1" onChange={(e) => { handleCheckboxChange(e); setstuff(28) }} />
                     <label htmlFor="action">Action</label>
 
-                    <input type="checkbox" id="adventure" name="adventure" value="12" onChange={(e) => { handleCheckboxChange(e); setstuff(12) }} />
+                    <input type="checkbox" id="adventure" name="adventure" value="2" onChange={(e) => { handleCheckboxChange(e); setstuff(12) }} />
                     <label htmlFor="adventure">Adventure</label>
 
-                    <input type="checkbox" id="animation" name="animation" value="16" onChange={(e) => { handleCheckboxChange(e); setstuff(16) }} />
+                    <input type="checkbox" id="animation" name="animation" value="3" onChange={(e) => { handleCheckboxChange(e); setstuff(16) }} />
                     <label htmlFor="animation">Animation</label>
 
-                    <input type="checkbox" id="crime" name="crime" value="80" onChange={(e) => { handleCheckboxChange(e); setstuff(80) }} />
+                    <input type="checkbox" id="crime" name="crime" value="4" onChange={(e) => { handleCheckboxChange(e); setstuff(80) }} />
                     <label htmlFor="crime">Crime</label>
 
-                    <input type="checkbox" id="family" name="family" value="10751" onChange={(e) => { handleCheckboxChange(e); setstuff(10751) }} />
+                    <input type="checkbox" id="family" name="family" value="5" onChange={(e) => { handleCheckboxChange(e); setstuff(10751) }} />
                     <label htmlFor="family">Family</label>
 
-                    <input type="checkbox" id="fantasy" name="fantasy" value="14" onChange={(e) => { handleCheckboxChange(e); setstuff(14) }} />
+                    <input type="checkbox" id="fantasy" name="fantasy" value="6" onChange={(e) => { handleCheckboxChange(e); setstuff(14) }} />
                     <label htmlFor="fantasy">Fantasy</label>
 
-                    <input type="checkbox" id="history" name="history" value="36" onChange={(e) => { handleCheckboxChange(e); setstuff(36) }} />
+                    <input type="checkbox" id="history" name="history" value="7" onChange={(e) => { handleCheckboxChange(e); setstuff(36) }} />
                     <label htmlFor="history">History</label>
 
-                    <input type="checkbox" id="horror" name="horror" value="27" onChange={(e) => { handleCheckboxChange(e); setstuff(27) }} />
+                    <input type="checkbox" id="horror" name="horror" value="8" onChange={(e) => { handleCheckboxChange(e); setstuff(27) }} />
                     <label htmlFor="horror">Horror</label>
 
-                    <input type="checkbox" id="mystery" name="mystery" value="9648" onChange={(e) => { handleCheckboxChange(e); setstuff(9648) }} />
+                    <input type="checkbox" id="mystery" name="mystery" value="9" onChange={(e) => { handleCheckboxChange(e); setstuff(9648) }} />
                     <label htmlFor="mystery">Mystery</label>
 
-                    <input type="checkbox" id="scifi" name="scifi" value="878" onChange={(e) => { handleCheckboxChange(e); setstuff(878) }} />
+                    <input type="checkbox" id="scifi" name="scifi" value="10" onChange={(e) => { handleCheckboxChange(e); setstuff(878) }} />
                     <label htmlFor="scifi">Sci-Fi</label>
 
-                    <input type="checkbox" id="war" name="war" value="10752" onChange={(e) => { handleCheckboxChange(e); setstuff(10752) }} />
+                    <input type="checkbox" id="war" name="war" value="11" onChange={(e) => { handleCheckboxChange(e); setstuff(10752) }} />
                     <label htmlFor="war">War</label>
 
-                    <input type="checkbox" id="western" name="western" value="37" onChange={(e) => { handleCheckboxChange(e); setstuff(37) }} />
+                    <input type="checkbox" id="western" name="western" value="12" onChange={(e) => { handleCheckboxChange(e); setstuff(37) }} />
                     <label htmlFor="western">Western</label>
 
                 </li>
             </div>
+            <div>
+                <h1>Register with Google:</h1>
+                <button onClick={loginWithGoogle}>Login with Google</button>
+            </div>
+
         </div>
 
     )
